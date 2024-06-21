@@ -1,0 +1,71 @@
+@import url('https://fonts.cdnfonts.com/css/ds-digital');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.grid-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.grid-row > .col-2 {
+  grid-column: span 2;
+}
+.grid-row > .row-2 {
+  grid-row: span 2;
+}
+.javascript-calculator {
+  max-width: 400px;
+  margin: 20px auto;
+  background: #809be7;
+  padding: 10px;
+  border-radius: 10px;
+}
+.calculator-head {
+  background: #000;
+  color: #fff;
+  min-height: 100px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 32px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-family: 'DS-Digital', sans-serif;
+  font-weight: 500;
+
+}
+.calculator-buttons button {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  font-size: 19px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.calculator-buttons button:hover {
+  /* opacity: 0.8 !important; */
+  transform: scale(0.98);
+}
+div#display,
+.formula {
+  min-height: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+button#clear {
+  background: #d70c51;
+  color: #fff;
+  border-color: #d70c51;
+}
+
+button#equals {
+  background: #444;
+  color: #fff;
+}
