@@ -1,6 +1,6 @@
 # react-simple-calculator
 
-![Design preview for React Simple Calculator](./public/preview.jpg)
+![Design preview for React Simple Calculator](./public/preview.JPG)
 
 live demo: 
 https://techguy08.github.io/react-simple-calculator/
