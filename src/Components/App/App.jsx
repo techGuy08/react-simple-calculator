@@ -70,7 +70,10 @@ function App() {
     if (isEmpty) {
       setFormula(value);
       setIsEqual(true);
-    } else {
+    } else if (!isEqual) {
+      if (Number.isNaN(Number(output))) {
+        return false;
+      }
       let eq = formula + operator + output;
       if (!Number.isNaN(Number(output))) {
         let res = eval(eq);
@@ -92,21 +95,35 @@ function App() {
     setPrevVal("");
   };
   return (
-    <div className={`${projectName}`}>
-      <div className="calculator-head">
-        <div className="formula">{formula}</div>
-        <div className="output" id="display">
-          {output}
+    <div className="app">
+      <div className={`${projectName}`}>
+        <div className="calculator-head">
+          <div className="formula">{formula}</div>
+          <div className="output" id="display">
+            {output}
+          </div>
+        </div>
+        <div className="calculator-body">
+          <Buttons
+            output={output}
+            onNumberClick={handleNumberClick}
+            onOperatorClick={handleOperatorClick}
+            onEqualsClick={handleEqualsClick}
+            onClearClick={handleClearClick}
+          />
         </div>
       </div>
-      <div className="calculator-body">
-        <Buttons
-          output={output}
-          onNumberClick={handleNumberClick}
-          onOperatorClick={handleOperatorClick}
-          onEqualsClick={handleEqualsClick}
-          onClearClick={handleClearClick}
-        />
+      <div className="footer">
+        <div class="author">
+          Designed and Coded By <br />
+          <a
+            href="https://github.com/techGuy08"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Amine S.
+          </a>
+        </div>
       </div>
     </div>
   );
