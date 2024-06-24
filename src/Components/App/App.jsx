@@ -3,7 +3,7 @@ import Buttons from "../Buttons/Buttons";
 import { useState } from "react";
 function App() {
   const [output, setOutput] = useState("");
-  const [operator, setOperator] = useState("");
+  const [operators, setOperators] = useState([]);
   const [prevVal, setPrevVal] = useState(null);
   const [formula, setFormula] = useState("");
   const [isEqual, setIsEqual] = useState(false);
@@ -15,7 +15,7 @@ function App() {
       screen = "";
       setIsEqual(false);
       setFormula("");
-      setOperator("");
+      setOperators([]);
     }
     if (value === "." && !screen.toString().includes(".")) {
       if (Number(screen)) {
@@ -46,9 +46,14 @@ function App() {
     };
     const value = e.target.innerText;
     let num = Number(output);
-    if (operator === "") {
+    let currentOp = [...operators, op[value]];
+    if (currentOp.length > 2) {
+      currentOp.shift();
+    }
+    if (operators.length === 0) {
       setFormula(Number(output));
     } else {
+      let operator = getOperator();
       if (!Object.values(op).includes(output)) {
         if (!prevVal) {
           setFormula(formula + operator + num);
@@ -61,7 +66,7 @@ function App() {
       }
     }
     setOutput(op[value]);
-    setOperator(op[value]);
+    setOperators(currentOp);
   };
   const handleEqualsClick = (e) => {
     let value = output;
@@ -74,9 +79,13 @@ function App() {
       if (Number.isNaN(Number(output))) {
         return false;
       }
+      let operator = getOperator();
       let eq = formula + operator + output;
       if (!Number.isNaN(Number(output))) {
-        let res = eval(eq);
+        let res = eval(eq).toString();
+        if (res.includes(".") && res.split(".")[1].length > 4) {
+          res = Number(res).toFixed(4);
+        }
         setFormula(eq + "=" + res);
         setOutput("");
         setPrevVal(res);
@@ -90,9 +99,14 @@ function App() {
   const handleClearClick = (e) => {
     setFormula("");
     setIsEqual(false);
-    setOperator("");
+    setOperators([]);
     setOutput("");
     setPrevVal("");
+  };
+  const getOperator = () => {
+    return operators.length > 1 && operators[0] !== "-" && operators[1] === "-"
+      ? operators.join("")
+      : operators[operators.length - 1];
   };
   return (
     <div className="app">
@@ -114,7 +128,7 @@ function App() {
         </div>
       </div>
       <div className="footer">
-        <div class="author">
+        <div className="author">
           Designed and Coded By <br />
           <a
             href="https://github.com/techGuy08"
