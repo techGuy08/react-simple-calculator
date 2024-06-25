@@ -1,6 +1,6 @@
 import Button from "../Button/Button";
 import btns from "./btns";
-console.log(btns);
+
 const Buttons = function ({
   onNumberClick,
   onOperatorClick,
