@@ -1,6 +1,8 @@
 import "./App.css";
 import Buttons from "../Buttons/Buttons";
 import { useState } from "react";
+const stringMath = require("string-math");
+
 function App() {
   const [output, setOutput] = useState("");
   const [operators, setOperators] = useState([]);
@@ -57,6 +59,7 @@ function App() {
       if (!Object.values(op).includes(output)) {
         if (!prevVal) {
           setFormula(formula + operator + num);
+          currentOp.shift();
         } else {
           let trailEq = num === 0 ? "" : operator + num;
           setFormula(prevVal + trailEq);
@@ -82,7 +85,7 @@ function App() {
       let operator = getOperator();
       let eq = formula + operator + output;
       if (!Number.isNaN(Number(output))) {
-        let res = eval(eq).toString();
+        let res = getCalculationResult(eq).toString();
         if (res.includes(".") && res.split(".")[1].length > 4) {
           res = Number(res).toFixed(4);
         }
@@ -91,7 +94,7 @@ function App() {
         setPrevVal(res);
         setIsEqual(true);
       } else {
-        let res = eval(eq);
+        let res = getCalculationResult(eq);
         setFormula(res);
       }
     }
@@ -107,6 +110,9 @@ function App() {
     return operators.length > 1 && operators[0] !== "-" && operators[1] === "-"
       ? operators.join("")
       : operators[operators.length - 1];
+  };
+  const getCalculationResult = (eq) => {
+    return stringMath(eq);
   };
   return (
     <div className="app">
